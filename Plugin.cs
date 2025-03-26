@@ -10,6 +10,7 @@ namespace MoreZoomPreview
 {
     [BepInPlugin("com.November75.MoreZoomPreview", "MoreZoomPreview", "1.0.0")]
     [BepInDependency("com.SPT.core", "3.11.0")]
+    [BepInDependency("Tyfon.UIFixes", BepInDependency.DependencyFlags.SoftDependency)]   
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource log;
