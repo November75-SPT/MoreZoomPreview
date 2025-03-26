@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <GameRoot Condition=" '$(GameRoot)' == '' ">F:\Game\SPT\v3_11\</GameRoot>
+    <PluginsSPTDir>$(GameRoot)BepInEx\plugins\spt\</PluginsSPTDir>
+    <PluginsDir>$(GameRoot)BepInEx\plugins\</PluginsDir>
+    <ManagedDir>$(GameRoot)EscapeFromTarkov_Data\Managed\</ManagedDir>
+    <BepInExCoreDir>$(GameRoot)BepInEx\core\</BepInExCoreDir>
+  </PropertyGroup>
+
+
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExCoreDir)0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BepinEx">
+      <HintPath>$(BepInExCoreDir)BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="BepinEx.Preloader">
+      <HintPath>$(BepInExCoreDir)BepInEx.Preloader.dll</HintPath>
+    </Reference>
+
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedDir)Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization">
+      <HintPath>$(ManagedDir)Sirenix.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedDir)UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(ManagedDir)UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(ManagedDir)UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+
+
+    <Reference Include="spt-reflection">
+      <HintPath>$(PluginsSPTDir)spt-reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="spt-custom">
+      <HintPath>$(PluginsSPTDir)spt-custom.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">  
+    <ItemGroup>
+      <BuiltAssembly Include="$(TargetDir)$(TargetFileName)" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(BuiltAssembly)"
+          DestinationFolder="$(PluginsDir)" />
+  </Target>
+
+</Project>
