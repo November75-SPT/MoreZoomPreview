@@ -6,6 +6,7 @@ using HarmonyLib;
 using EFT.UI.WeaponModding;
 using UnityEngine;
 using System.Collections.Generic;
+using MoreZoomPreview.Config;
 
 namespace MoreZoomPreview.Patches
 {
@@ -29,6 +30,8 @@ namespace MoreZoomPreview.Patches
                 return false;
             }
 
+            zoom *= ConfigManager.SensitivityMultiplier.Value;
+
             Transform cameraTransform = __instance.WeaponPreviewCamera.transform;
             cameraTransform.Translate(new Vector3(0f, 0f, zoom));
 
@@ -43,7 +46,7 @@ namespace MoreZoomPreview.Patches
             // }
 
             Vector3 localPosition = cameraTransform.localPosition;            
-            localPosition.z = Mathf.Clamp(localPosition.z, -2.7f, Config.ConfigManager.MaxZoomIn.Value);   
+            localPosition.z = Mathf.Clamp(localPosition.z, -2.7f, ConfigManager.MaxZoomIn.Value);   
             cameraTransform.localPosition = localPosition;
 #if DEBUG
             Plugin.log.LogInfo($"Custom Zoom: input:{zoom} camera.z:{cameraTransform.localPosition.z}");
