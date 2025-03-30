@@ -53,24 +53,6 @@ namespace MoreZoomPreview.Patches
             Plugin.log.LogInfo($"Custom Zoom: input:{zoom} camera.z:{cameraTransform.localPosition.z}");
 #endif
 
-
-             // 스택 트레이스 추가
-            var stackTrace = new System.Diagnostics.StackTrace(true);
-            Plugin.log.LogInfo($"StackTrace:\n{stackTrace.ToString()}");
-
-            // Post-Delay로 변경 감지
-            Task.Delay(1).ContinueWith(_ => 
-            {
-                var postDelayZ = cameraTransform.localPosition.z;
-                Plugin.log.LogInfo($"Post-Delay: z={postDelayZ}");
-                if (Mathf.Abs(postDelayZ - localPosition.z) > 0.0001f) // 값이 변했는지 확인
-                {
-                    var delayStackTrace = new System.Diagnostics.StackTrace(true);
-                    Plugin.log.LogInfo($"Value Changed! StackTrace:\n{delayStackTrace.ToString()}");
-                }
-            });
-
-
             return false; // Prevent original method from executing
         }
     }
